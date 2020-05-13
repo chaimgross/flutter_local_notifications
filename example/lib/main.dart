@@ -630,7 +630,9 @@ class _HomePageState extends State<HomePage> {
         'show daily title',
         'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
         time,
-        platformChannelSpecifics);
+        platformChannelSpecifics,
+        categoryIdentifier: "MY_NOTIFICATION_CATEGORY",
+        payload: 'item x');
   }
 
   Future<void> _showWeeklyAtDayAndTime() async {

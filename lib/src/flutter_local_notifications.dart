@@ -211,13 +211,17 @@ class FlutterLocalNotificationsPlugin {
     });
   }
 
-  /// Shows a notification on a daily interval at the specified time
   Future<void> showDailyAtTime(int id, String title, String body,
       Time notificationTime, NotificationDetails notificationDetails,
-      {String payload}) async {
+      { String categoryIdentifier,
+        String payload,
+        bool androidAllowWhileIdle = false,}) async {
     _validateId(id);
     var serializedPlatformSpecifics =
-        _retrievePlatformSpecificNotificationDetails(notificationDetails);
+    _retrievePlatformSpecificNotificationDetails(notificationDetails);
+    if (_platform.isAndroid) {
+      serializedPlatformSpecifics['allowWhileIdle'] = androidAllowWhileIdle;
+    }
     await _channel.invokeMethod('showDailyAtTime', <String, dynamic>{
       'id': id,
       'title': title,
@@ -226,11 +230,12 @@ class FlutterLocalNotificationsPlugin {
       'repeatInterval': RepeatInterval.Daily.index,
       'repeatTime': notificationTime.toMap(),
       'platformSpecifics': serializedPlatformSpecifics,
+      'categoryIdentifier': categoryIdentifier,
       'payload': payload ?? ''
     });
-  }
 
-  /// Shows a notification on a daily interval at the specified time
+
+    /// Shows a notification on a daily interval at the specified time
   Future<void> showWeeklyAtDayAndTime(int id, String title, String body,
       Day day, Time notificationTime, NotificationDetails notificationDetails,
       {String payload}) async {
