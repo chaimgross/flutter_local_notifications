@@ -65,8 +65,12 @@ public class NotificationActionReceiver extends BroadcastReceiver implements Met
 
             runSetupActionQueueCallback(context, flutterNativeView);
 
-            FlutterLocalNotificationsPlugin.pluginRegistrantCallback.registerWith(flutterNativeView.getPluginRegistry());
+            try {
+                FlutterLocalNotificationsPlugin.pluginRegistrantCallback.registerWith(flutterNativeView.getPluginRegistry());
+            }
+            catch (Exception E) {
 
+            }
             methodChannel = new MethodChannel(flutterNativeView, METHOD_CHANNEL);
             methodChannel.setMethodCallHandler(this);
         }
