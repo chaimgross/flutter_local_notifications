@@ -69,7 +69,7 @@ public class NotificationActionReceiver extends BroadcastReceiver implements Met
                 FlutterLocalNotificationsPlugin.pluginRegistrantCallback.registerWith(flutterNativeView.getPluginRegistry());
             }
             catch (Exception E) {
-
+                    System.out.println("ERORORORORORO CAUGGGHTHHTHTGTGH");
             }
             methodChannel = new MethodChannel(flutterNativeView, METHOD_CHANNEL);
             methodChannel.setMethodCallHandler(this);
