@@ -780,11 +780,17 @@ public class FlutterLocalNotificationsPlugin implements MethodCallHandler, Plugi
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(DEFAULT_ICON, defaultIcon);
 
-        List<Map<String, Object>> categoriesMaps = (List<Map<String, Object>>) arguments.get(CATEGORIES);
-        if (categoriesMaps != null) {
-            categories = buildCategories(categoriesMaps);
-        } else {
-            categories = Collections.emptyMap();
+        categories = Collections.emptyMap();
+        try {
+            List<Map<String, Object>> categoriesMaps = (List<Map<String, Object>>) arguments.get(CATEGORIES);
+            if (categoriesMaps != null) {
+                categories = buildCategories(categoriesMaps);
+            } else {
+                categories = Collections.emptyMap();
+            }
+        }
+        catch (Exception e) {
+
         }
 
         long setupActionQueueCallbackId = (Long) arguments.get(SETUP_ACTION_QUEUE_CALLBACK);
