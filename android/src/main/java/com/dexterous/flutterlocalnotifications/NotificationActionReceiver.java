@@ -93,7 +93,6 @@ public class NotificationActionReceiver extends BroadcastReceiver implements Met
                 put("categoryIdentifier", incomingAction.notificationDetails.categoryIdentifier);
                 put("actionIdentifier", incomingAction.notificationActionId);
                 put("payload", incomingAction.notificationDetails.payload);
-                put("date", incomingAction.notificationDetails.date);
             }};
             methodChannel.invokeMethod(ENQUEUE_METHOD, actionData, new MethodChannel.Result() {
                 @Override

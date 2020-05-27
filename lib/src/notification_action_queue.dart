@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'notification_action_data.dart';
 
-const _sharedPreferencesKey = "flutterLocalNotionActionPayloads";
+const _sharedPreferencesKey = "flutterLocalNotificationActionPayloads";
 
 const _notificationPortName = "flutterLocalNotificationActionIsolate";
 
@@ -53,7 +53,6 @@ class NotificationActionQueue {
   }
 
   Future<void> enqueueNotificationAction(NotificationActionData data) async {
-    data.date =
     final dataJson = json.encode(data.toMap());
 
     print("Enqueuing notification action: $dataJson");
