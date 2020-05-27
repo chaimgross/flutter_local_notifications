@@ -10,6 +10,7 @@ dependencies:
   meta: ^1.1.6
   platform: ^2.2.0
   shared_preferences: ^0.5.2
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

@@ -10,6 +10,8 @@ import 'package:flutter_local_notifications/src/notification_action_queue.dart';
 import 'package:meta/meta.dart';
 import 'package:platform/platform.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:intl/intl.dart';
+
 
 import 'initialization_settings.dart';
 import 'notification_action_data.dart';
@@ -326,9 +328,12 @@ void setupDartNotificationActionQueue() async {
         final dataMap = call.arguments;
         print("Processing notification action data: $dataMap");
         final data = NotificationActionData.fromMap(dataMap);
+        DateTime now = DateTime.now();
+        String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+        final newData = NotificationActionData(categoryIdentifier: data.categoryIdentifier, actionIdentifier: data.actionIdentifier, payload: formattedDate);
         final sharedPreferences = await SharedPreferences.getInstance();
         final actionQueue = NotificationActionQueue(sharedPreferences);
-        await actionQueue.enqueueNotificationAction(data);
+        await actionQueue.enqueueNotificationAction(newData);
         return;
       default:
         throw UnsupportedError("Unsupported method ${call.method}");
