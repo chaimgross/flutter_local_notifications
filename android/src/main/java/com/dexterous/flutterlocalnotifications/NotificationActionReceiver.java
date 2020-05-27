@@ -17,6 +17,9 @@ import io.flutter.view.FlutterNativeView;
 import io.flutter.view.FlutterRunArguments;
 
 import java.lang.reflect.Type;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -87,12 +90,14 @@ public class NotificationActionReceiver extends BroadcastReceiver implements Met
     }
 
     private void processActions() {
+        Format formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final String s = formatter.format(new Date());
         while(!incomingActions.isEmpty()) {
             final IncomingAction incomingAction = incomingActions.remove();
             final Map<String, Object> actionData = new HashMap<String, Object>() {{
                 put("categoryIdentifier", incomingAction.notificationDetails.categoryIdentifier);
                 put("actionIdentifier", incomingAction.notificationActionId);
-                put("payload", incomingAction.notificationDetails.payload);
+                put("payload", s);
             }};
             methodChannel.invokeMethod(ENQUEUE_METHOD, actionData, new MethodChannel.Result() {
                 @Override
